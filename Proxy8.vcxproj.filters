@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Aeyth8\Proxy.cpp">
+      <Filter>Aeyth8\Proxy</Filter>
+    </ClCompile>
+    <ClCompile Include="Aeyth8\ProxyTypes.cpp">
+      <Filter>Aeyth8\Proxy</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Aeyth8\Proxy.h">
+      <Filter>Aeyth8\Proxy</Filter>
+    </ClInclude>
+    <ClInclude Include="Aeyth8\ProxyTypes.h">
+      <Filter>Aeyth8\Proxy</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Aeyth8">
+      <UniqueIdentifier>{22d66732-5242-4541-a899-ff4b3121ebe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{c100630e-ec84-43ac-ad25-07d92d79424e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aeyth8\Proxy">
+      <UniqueIdentifier>{ba2fe6ac-b7ce-465b-8f5d-2671412a78b1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
