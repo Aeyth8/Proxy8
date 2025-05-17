@@ -16,6 +16,30 @@ namespace DXGI
 {
 	struct UNKNOWN { BYTE unknown[20]; };
 
+	typedef int(__stdcall* ApplyCompatResolutionQuirking_)(int* a1, int* a2);
+	ApplyCompatResolutionQuirking_ ApplyCompatResolutionQuirking_P{0};
+
+	EXPORT int ApplyCompatResolutionQuirking(int* a1, int* a2)
+	{
+		return ApplyCompatResolutionQuirking_P(a1, a2);
+	}
+
+	typedef int(__stdcall* CompatString_)(int a1, int a2, BYTE* a3, int a4);
+	CompatString_ CompatString_P{0};
+
+	EXPORT int CompatString(int a1, int a2, BYTE* a3, int a4)
+	{
+		return CompatString_P(a1, a2, a3, a4);
+	}
+
+	typedef int(__stdcall* CompatValue_)(int a1, int32_t* a2);
+	CompatValue_ CompatValue_P{0};
+
+	EXPORT int CompatValue(int a1, int32_t* a2)
+	{
+		return CompatValue_P(a1, a2);
+	}
+
 	typedef HRESULT(__stdcall* DXGIDumpJournal_)(void* Unknown);
 	DXGIDumpJournal_ DXGIDumpJournal_P{0};
 
@@ -80,6 +104,14 @@ namespace DXGI
 		return DXGID3D10RegisterLayers_P(pLayers, NumLayers);
 	}
 
+	typedef HRESULT(__stdcall* DXGIDeclareAdapterRemovalSupport_)();
+	DXGIDeclareAdapterRemovalSupport_ DXGIDeclareAdapterRemovalSupport_P{0};
+
+	EXPORT HRESULT DXGIDeclareAdapterRemovalSupport()
+	{
+		return DXGIDeclareAdapterRemovalSupport_P();
+	}
+
 	typedef HRESULT(__stdcall* DXGIGetDebugInterface1_)(UINT Flags, REFIID riid, void** pDebug);
 	DXGIGetDebugInterface1_ DXGIGetDebugInterface1_P{0};
 
@@ -98,6 +130,9 @@ namespace DXGI
 
 	const static std::vector<Proxy::ProxyCallStructure> Table =
 	{
+		{(void**)&ApplyCompatResolutionQuirking_P, "ApplyCompatResolutionQuirking"},
+		{(void**)&CompatString_P, "CompatString"},
+		{(void**)&CompatValue_P, "CompatValue"},
 		{(void**)&DXGIDumpJournal_P, "DXGIDumpJournal"},
 		{(void**)&CreateDXGIFactory_P, "CreateDXGIFactory"},
 		{(void**)&CreateDXGIFactory1_P, "CreateDXGIFactory1"},
@@ -105,7 +140,8 @@ namespace DXGI
 		{(void**)&DXGID3D10CreateDevice_P, "DXGID3D10CreateDevice"},
 		{(void**)&DXGID3D10CreateLayeredDevice_P, "DXGID3D10CreateLayeredDevice"},
 		{(void**)&DXGID3D10GetLayeredDeviceSize_P, "DXGID3D10GetLayeredDeviceSize"},
-		{(void**)&DXGID3D10RegisterLayers_P, "DXGID3D10RegisterLayers"},
+		{(void**)&DXGID3D10RegisterLayers_P, "DXGID3D10RegisterLayers"},	
+		{(void**)&DXGIDeclareAdapterRemovalSupport_P, "DXGIDeclareAdapterRemovalSupport"},
 		{(void**)&DXGIGetDebugInterface1_P, "DXGIGetDebugInterface1"},
 		{(void**)&DXGIReportAdapterConfiguration_P, "DXGIReportAdapterConfiguration"},
 	};
