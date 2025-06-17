@@ -167,11 +167,84 @@ namespace XAPOFX1_5
 
 Proxy::ProxyStructure P_XAPOFX1_5{"XAPOFX1_5.dll", XAPOFX1_5::Table};
 
+namespace UxTheme
+{
+	typedef HRESULT(__stdcall* SetWindowTheme_)(HWND hwnd, LPCWSTR pszSubAppName, LPCWSTR pszSubIdList);
+	SetWindowTheme_ SetWindowTheme_P{0};
+
+	EXPORT HRESULT SetWindowTheme(HWND hwnd, LPCWSTR pszSubAppName, LPCWSTR pszSubIdList)
+	{
+		return SetWindowTheme_P(hwnd, pszSubAppName, pszSubIdList);
+	}
+
+	const static std::vector<Proxy::ProxyCallStructure> Table =
+	{
+		{(void**)&SetWindowTheme_P, "SetWindowTheme"}
+	};
+}
+
+Proxy::ProxyStructure P_UxTheme{"UxTheme.dll", UxTheme::Table};
+
+namespace Shell32
+{
+	typedef HINSTANCE(__stdcall* ShellExecute_)(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory, INT nShowCmd);
+	ShellExecute_ ShellExecute_P{0};
+
+	EXPORT HINSTANCE ShellExecuteA(HWND hwnd, LPCSTR lpOperation, LPCSTR lpFile, LPCSTR lpParameters, LPCSTR lpDirectory, INT nShowCmd)
+	{ 
+		return ShellExecute_P(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd); 
+	}
+
+	const static std::vector<Proxy::ProxyCallStructure> Table =
+	{
+		{(void**)&ShellExecute_P, "ShellExecuteA"}
+	};
+}
+
+Proxy::ProxyStructure P_Shell32{"shell32.dll", Shell32::Table};
+
+namespace SHLWAPI
+{
+	typedef LPCWSTR(__stdcall* PathFindFileNameW_)(__in LPCWSTR pszPath);
+	PathFindFileNameW_ PathFindFileNameW_P{0};
+
+	EXPORT LPCWSTR PathFindFileNameW(__in LPCWSTR pszPath)
+	{
+		return PathFindFileNameW_P(pszPath);
+	}
+
+	const static std::vector<Proxy::ProxyCallStructure> Table =
+	{
+		{(void**)&PathFindFileNameW_P, "PathFindFileNameW"}
+	};
+}
+
+Proxy::ProxyStructure P_SHLWAPI{"shlwapi.dll", SHLWAPI::Table};
+
+namespace JVMVerify
+{
+    typedef char(__stdcall* VerifyClassForMajorVersion_)(__int64 env, __int64 cb, __int64 message_buffer, int buffer_length, int major_version);
+    VerifyClassForMajorVersion_ VerifyClassForMajorVersion_P{0};
+
+    EXPORT char VerifyClassForMajorVersion(__int64 env, __int64 cb, __int64 message_buffer, int buffer_length, int major_version)
+    {
+        return VerifyClassForMajorVersion_P(env, cb, message_buffer, buffer_length, major_version);
+    }
+
+    const static std::vector<Proxy::ProxyCallStructure> Table =
+    {
+        {(void**)&VerifyClassForMajorVersion_P, "VerifyClassForMajorVersion"}
+    };
+}
+
+Proxy::ProxyStructure P_JVMVerify{"verify.dll", JVMVerify::Table};
+
 std::vector<Proxy::ProxyStructure> ProxyTypes::Proxies =
 {
 	P_DXGI,
 	P_XAPOFX1_5,
-
-
-
+	P_UxTheme,
+	P_Shell32,
+	P_SHLWAPI,
+	P_JVMVerify,
 };
